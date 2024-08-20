@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css-home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: rgb(230, 230, 250)">
+    <header class="header-nav">
+        <nav>
+            <ul>
+                <li><a href="home.html">HOME</a></li>
+                <li><a href="passeggiate.html">PASSEGGIATE</a></li>
+                <li><a href="pioggia.html">PIOGGIA</a></li>
+                <li><a href="alloggio.html">ALLOGGIO</a></li>
+                <li><a href="cibo.html">CIBO</a></li>
+                <li><a href="trasporti.html">TRASPORTI</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    
+    <div class="main-container">
+        <!-- Immagine superiore -->
+        <div class="image-container">
+            <img id="image1" src="images/home/image1.jpg" class="bk-im active">
+            <img id="image2" src="images/home/image2.jpg" class="bk-im">
+            <img id="image3" src="images/home/image3.jpg" class="bk-im">
+        </div>
+        
+        <!-- Carosello -->
+        <div class="carousel-container">
+            <button class="carousel-button prev">&#10094;</button>
+            <div class="carousel-wrapper">
+                <div class="carousel">
+                    <div class="carousel-item">
+                        <a href="passeggiate.html">  
+                            <img src="images/home/image6.jpg" alt="Passeggiate">
+                            <div class="carousel-caption">Passeggiate</div>
+                        </a> 
+                    </div>
+                    <div class="carousel-item" data-link="trasporti.html">
+                        <a href="trasporti.html">  
+                            <img src="images/home/image7.jpg" alt="Trasporti">
+                            <div class="carousel-caption">Trasporti</div>
+                        </a> 
+                    </div>
+                    <div class="carousel-item" data-link="cibo.html">
+                        <a href="cibo.html">  
+                        <img src="images/home/image8.jpg" alt="Cibo">
+                        <div class="carousel-caption">Cibo</div>
+                    </a> 
+                    </div>
+                    <div class="carousel-item" data-link="alloggio.html">
+                        <a href="alloggio.html">  
+                        <img src="images/home/image9.jpg" alt="Alloggio">
+                        <div class="carousel-caption">Alloggio</div>
+                    </a> 
+                    </div>
+                    <div class="carousel-item" data-link="pioggia.html">
+                        <a href="pioggia.html">  
+                        <img src="images/home/image10.jpg" alt="Pioggia">
+                        <div class="carousel-caption">Pioggia</div>
+                    </a> 
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-button next">&#10095;</button>
+        </div>
+    </div>
+    
+   
+    
+    <div class="container-wrapper">
+        <!-- GIF a sinistra -->
+        <img src="images/home/scooby1.gif" alt="Scooby Doo" class="scooby-image">
+    
+        <!-- Contenitore principale -->
+        <div class="home-container">
+            <h1>Benvenuti al Lago di Resia!</h1>
+            <p>
+                <strong>Ciao a tutti!</strong> Questo sito è stato creato per <strong>organizzare al meglio</strong> la nostra vacanza in montagna 🎒🌲
+            </p>
+            <p>
+                Qui troverete tutte le <strong>informazioni</strong> che ci serviranno per rendere la nostra vacanza <strong>indimenticabile</strong>: 
+                dai <strong>sentieri più panoramici</strong> alle soluzioni per <strong>sopravvivere alla pioggia</strong>, dai <strong>piatti tipici</strong> da assaporare <br>
+                ai <strong>dettagli sull’alloggio</strong> e, naturalmente, su come ci <strong>sposteremo senza perderci</strong> (si spera!) 🗺️
+            </p>
+            <p>
+                Ogni <strong>sezione</strong> di questo sito è stata pensata per fornirvi tutte le <strong>dritte necessarie</strong> per vivere al meglio questa esperienza. 
+                Sentitevi liberi di esplorare ogni <strong>pagina</strong>.
+            </p>
+            <p>
+                Preparatevi a fare le <strong>valigie</strong> e a vivere momenti di puro <strong>divertimento</strong>!
+            </p>
+            <p>
+                <strong>Buona navigazione! ⛰️</strong>
+            </p>
+        </div>
+    
+        <!-- Immagine a destra -->
+        <img src="images/home/scooby2.gif" alt="Scooby Doo" class="home-image">
+    </div>
+
+   
+ 
+    <script>
+        const images = document.querySelectorAll('.bk-im');
+        let currentImageIndex = 0;
+
+        function changeImage() {
+            images[currentImageIndex].classList.remove('active');
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            images[currentImageIndex].classList.add('active');
+        }
+
+        setInterval(changeImage, 5000); // Cambia immagine ogni 5 secondi
+    </script>
+    <script>
+    let currentIndex = 0;
+    const itemWidth = 33.33; // Larghezza dell'elemento in percentuale
+    const items = document.querySelectorAll('.carousel-item');
+    const totalItems = items.length;
+
+    function initializeCarousel() {
+        // Duplicare i primi elementi per il carosello infinito
+        const carousel = document.querySelector('.carousel');
+        const cloneItems = document.querySelectorAll('.carousel-item').forEach(item => {
+            const clone = item.cloneNode(true);
+            carousel.appendChild(clone);
+    });
+
+    // Avvia il carosello
+    scrollCarousel(0);
+}
+
+function scrollCarousel(direction) {
+    const carousel = document.querySelector('.carousel');
+    const totalVisibleItems = 3; // Numero di immagini visibili
+    currentIndex += direction;
+
+    if (currentIndex < 0) {
+        currentIndex = totalItems;
+    } else if (currentIndex > totalItems) {
+        currentIndex = 0;
+    }
+
+    const offset = -currentIndex * itemWidth;
+    carousel.style.transform = `translateX(${offset}%)`;
+
+    // Se siamo arrivati alla fine del carosello duplicato, torna all'inizio
+    if (currentIndex === totalItems) {
+        setTimeout(() => {
+            carousel.style.transition = 'none';
+            carousel.style.transform = `translateX(0%)`;
+            currentIndex = 0;
+        }, 500); // Tempo di transizione deve corrispondere al tempo della transizione CSS
+    } else {
+        carousel.style.transition = 'transform 0.5s ease';
+    }
+}
+
+initializeCarousel(); // Inizializza il carosello
+
+document.querySelector('.prev').addEventListener('click', () => scrollCarousel(-1));
+document.querySelector('.next').addEventListener('click', () => scrollCarousel(1));
+
+
+    </script>
+</body>
+</html>
